@@ -4,7 +4,17 @@ A discord Meem Bot... Ainsley Bot
 This is a meem Bot just for entairtainment !
 rightnow in development
 
-`Dvelopment Phase One !`
+` Dvelopment Phase One ! `
+
+``Before Running the project make sure you have ``
+
+_** INSTALLED ALLL THE DEPENDENCIES**_
+
+`` cd into Directory and  npm install ``
+
+_** INTALLED FFMPEG For Playing Files Of the Server **_
+
+`` Download FFMPEG From The Link -> https://ffmpeg.org/download.html ``
 
 **AINSLEY IS HERE TO SAVE YOUR DAY**
 
