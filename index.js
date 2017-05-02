@@ -106,4 +106,4 @@ client.on("message", m => {
 });
 
 
-client.login('YOUR TOKEN');
+client.login('MzA3MTU0ODQwOTE0NDkzNDUx.C-OL0Q.892UuiJOCGbqg57J5pWFIwWXIX0');
