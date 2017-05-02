@@ -15,6 +15,7 @@ _** INSTALLED ALLL THE DEPENDENCIES**_
 _** INTALLED FFMPEG For Playing Files Of the Server **_
 
 `` Download FFMPEG From The Link -> https://ffmpeg.org/download.html ``
+`` Run Using node . ``
 
 **AINSLEY IS HERE TO SAVE YOUR DAY**
 
