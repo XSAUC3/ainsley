@@ -1,9 +1,11 @@
 const Discord = require("discord.js");
 const client = new Discord.Client({autoReconnect: true});
-//const music = require('discord.js-music');
 const yt = require('ytdl-core');
 const streamOptions = { seek: 0, volume: 1 };
-//var request = require("superagent");
+const tune  = '199926086522503168';
+const indra = '203851306044096512';
+
+const newUsers = [];
 
 var game = "food...nah! ..help"; 
 
@@ -18,6 +20,9 @@ var ssu2 = '';
 var s3  = '';
 var ss3 = '';
 var ssu3 = '';
+
+var d = new Date();
+var i = d.getDay();
 
 client.setMaxListeners(100);
 
@@ -40,7 +45,7 @@ const cmds = new Discord.RichEmbed()
   .setImage('http://i2.kym-cdn.com/photos/images/newsfeed/000/206/844/1315010298703.jpg')
   .setThumbnail('https://cdn.discordapp.com/avatars/307154840914493451/803911ab6c3183088c686df5912a541a.png')
   .addField('Ainsley BOT By,', 'Chinmay')
-  .addField('Commands: ',' •..join •..leave •..toss •..mems •..boi  •.SET-TOP-3 '); 
+  .addField('Commands: ',' •..join •..leave •..toss •..mems •..boi •..avatar •..T3 •..SETS1 •..SETSU1 '); 
 
 const sad = new Discord.RichEmbed()
   .setTitle('Dont be Sad ....')
@@ -50,6 +55,8 @@ const sad = new Discord.RichEmbed()
   .setThumbnail('https://cdn.discordapp.com/avatars/307154840914493451/803911ab6c3183088c686df5912a541a.png')
 
 
+
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
   client.user.setGame(game);
@@ -57,12 +64,10 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (msg.content === 'boi') {
+  if (msg.content.includes("boi")) {
     msg.reply('Yeahhhh Boiiiiiiiiii !');
   }
 });
-
-
 
 
 client.on('message', msg => {
@@ -96,14 +101,14 @@ client.on('message', msg => {
 });
 
 client.on('message', msg => {
-  if (msg.content.includes("fuck")) {
+  if (msg.content.includes('fuck')) {
     msg.delete(300);
     msg.reply('``Fuck You Too Boi.``');
   }
 });
 
 client.on('message', msg => {
-  if (msg.content.includes("FUCK")) {
+    if (msg.content.includes("FUCK")) {
     msg.delete(300);
     msg.reply('``Fuck You Too Boi.``');
   }
@@ -118,28 +123,41 @@ client.on('message', msg => {
 
 client.on('message', message => {
   if (message.content.includes("..SETS1")) {
-    if (message.author.id !== '203851306044096512' ) 
-    {message.reply("``This Command Is Only For Djs With Permisions.``");}
-    else
+    if (message.author.id === tune||indra ) 
     {
         s1 = message.content;
         ss1 = s1.replace("..SETS1","")
-        console.log(ss1);
-        message.reply("**The Song 1 ``NAME`` Set For the day is **``"+ss1+"``");
+        if(ss1 == ""){message.reply("``Song Name Cannot Be Empty``")}
+        else
+        {
+          console.log(ss1);
+          message.reply("**The Song 1 ``NAME`` Set For the day is **``"+ss1+"``");
+        }  
+  }
+    else
+    {
+        message.reply("``This Command Is Only For Djs With Permisions.``");
     }
 }
 });
 
 client.on('message', message => {
   if (message.content.includes("..SETSU1")) {
-    if (message.author.id !== '203851306044096512' ) 
-    {message.reply("``This Command Is Only For Djs With Permisions.``");}
-    else
+    if (message.author.id === indra||tune  ) 
     {
         su1 = message.content;
         ssu1 = su1.replace("..SETSU1","")
+        if(ssu1 == ""){message.reply("``Song URL Cannot Be Empty``")}
+        else
+        {
         console.log(ssu1);
-        message.reply("**The Song 1 ``URL` Set For the day is **``"+ssu1+"``");
+        message.reply("**The Song 1 `URL` Set For the day is **``"+ssu1+"``");
+        }
+    }
+    else
+    {
+        
+        message.reply("``This Command Is Only For Djs With Permisions.``");
     }
 }
 });
@@ -151,6 +169,79 @@ client.on('message', msg => {
     if (!voiceChannel) {msg.reply(`Please be in a voice channel first!`);}
     else{msg.reply('Yeah Boi Leaving VC ........');
     voiceChannel.leave();}
+  }
+});
+
+
+
+client.on('message', msg => {
+  if (msg.content === '..T3') {
+    if(ss1||ss2||ss3||ssu1||ssu2||ssu3 === "" )
+    {
+      msg.reply('`TOP 3 Are Not Set Yet !`');
+    }
+    else
+    {
+    msg.reply('``HERE are Your Top 3 Songs.. ``');  
+          msg.channel.send("`1."+ss1+"  - "+ssu1+"`");
+          msg.channel.send("`2."+ss2+"  - "+ssu2+"`");
+          msg.channel.send("`3."+ss3+"  - "+ssu3+"`");
+    }
+  }
+});
+
+client.on("guildCreate", (guild) => {
+
+    console.log(client.user.username + " was invited to and joined " + guild.name);
+});
+client.on("guildMemberAdd", (member) => {
+  const guild = member.guild;
+    console.log(member.user.username + " joined " + guild.name);
+    guild.channels.get(guild.id).send({embed: {
+  color: 0x00AE86,
+  author: {
+    name: client.user.username,
+    icon_url: client.user.avatarURL
+  },
+  title: 'This is an embed',
+  url: 'http://google.com',
+  description: 'WELCOME TO THE SERVER !'+ member.user.username,
+  "image": {
+                "url": member.user.avatarURL,
+                },
+  fields: [
+    {
+      name: member.user.username,
+      value: 'Joined @ **'+member.joinedTimestamp.toString 
+    },
+    {
+      name: ' **Server Count ``"+ guild.memberCount + "``**',
+      value: member.user.tag+"``Hope you enjoy your stay here !``"
+    },
+  ],
+  timestamp: new Date(),
+  footer: {
+    icon_url: client.user.avatarURL,
+    text: '© Example'
+  }
+}});
+
+});
+
+client.on('guildMemberRemove', (member) => {
+  const guild = member.guild;
+  console.log(member.user.username + " left " + guild.name);
+     guild.channels.get(guild.id).send("bye bye **``"+member.user.username+"``** we Dont even need you !" )
+     guild.channels.get(guild.id).send(" **Server Count ``"+ guild.memberCount + "``**" )
+
+  });
+
+
+client.on('message', message => {
+  // If the message is "what is my avatar"
+  if (message.content === '..avatar') {
+    // Send the user's avatar URL
+    message.reply(message.author.avatarURL);
   }
 });
 
@@ -176,6 +267,7 @@ client.on('message', message => {
     if (!voiceChannel) {
       return message.reply(`Please be in a voice channel first!`);
     }
+     message.reply(`Playing The Longest Boi Remix !`);
     voiceChannel.join()
       .then(connnection => {
         const stream = yt("https://www.youtube.com/watch?v=eZ2fzJ-KdnA", {filter: 'audioonly'});
@@ -187,23 +279,6 @@ client.on('message', message => {
   }
 });
 
-
-client.on('message', message => {
-  if (message.content ===('..say')) {
-    const voiceChannel = message.member.voiceChannel;
-    if (!voiceChannel) {
-      return message.reply(`Please be in a voice channel first!`);
-    }
-    voiceChannel.join()
-      .then(connnection => {
-        const stream = message.tts;
-        const dispatcher = connnection.playStream(stream);
-        dispatcher.on('end', () => {
-          voiceChannel.leave();
-        });
-      });
-  }
-});
 
 
 client.login('MzA3MTU0ODQwOTE0NDkzNDUx.C-OL0Q.892UuiJOCGbqg57J5pWFIwWXIX0');
