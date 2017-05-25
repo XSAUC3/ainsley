@@ -502,9 +502,6 @@ client.on('message', message => {
   }
 });
 
-
-setInterval(function() {
     client.login('MzA3MTU0ODQwOTE0NDkzNDUx.C-OL0Q.892UuiJOCGbqg57J5pWFIwWXIX0');
-}, 30000);
 
 
