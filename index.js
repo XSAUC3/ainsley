@@ -1,30 +1,41 @@
-const Discord = require("discord.js");
-const client = new Discord.Client({autoReconnect: true});
-const yt = require('ytdl-core');
+const Discord       = require("discord.js");
+const client        = new Discord.Client({autoReconnect: true});
+const yt            = require('ytdl-core');
+var giphy           = require('giphy-api')();
 const streamOptions = { seek: 0, volume: 1 };
-const tune  = '199926086522503168';
-const indra = '203851306044096512';
+const tune          = '199926086522503168';
+const indra         = '203851306044096512';
+const GoogleImages = require('google-images');
 
 const newUsers = [];
 
 var game = "food...nah! ..help"; 
 
-var s1  = '';
-var ss1 = '';
-var ssu1 = '';
+var s1  ;
+var ss1 ;
+var ssu1;
 
-var s2  = '';
-var ss2  = '';
-var ssu2 = '';
+var s2  ;
+var ss2 ;
+var ssu2;
 
-var s3  = '';
-var ss3 = '';
-var ssu3 = '';
+var s3  ;
+var ss3 ;
+var ssu3;
+
+var join_leave;
 
 var d = new Date();
 var i = d.getDay();
 
 client.setMaxListeners(100);
+
+let responseObject = {
+  'fuck': 'fuck u too boi!',
+  'shit': 'lmao, u should shit your pants !',
+  'ass': 'lick my ass boi !'
+};
+
 
 const ans = new Discord.RichEmbed()
   .setTitle('Ainsley BOT')
@@ -60,15 +71,24 @@ const sad = new Discord.RichEmbed()
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
   client.user.setGame(game);
-
 });
 
-client.on('message', msg => {
-  if (msg.content.includes("boi")) {
-    msg.reply('Yeahhhh Boiiiiiiiiii !');
+client.on('message', (message) => {
+  if(responseObject[message.content]) {
+    if (message.author.id != "307154840914493451")
+        {
+          message.channel.send(responseObject[message.content]);
+        }
   }
 });
 
+
+client.on('message', (message) => {
+  if(message.content === "..as" ) 
+  {
+    message.reply("Boi I Am Now on **``"+ client.guilds +"``**");
+  }
+});
 
 client.on('message', msg => {
   if (msg.content === '..join') {
@@ -101,19 +121,28 @@ client.on('message', msg => {
 });
 
 client.on('message', msg => {
-  if (msg.content.includes('fuck')) {
-    msg.delete(300);
-    msg.reply('``Fuck You Too Boi.``');
+  if (msg.content === '..dis') {
+    msg.reply('Yeah Boi You Joined Discord @ **'+ msg.author.createdAt +'**');
   }
 });
 
 client.on('message', msg => {
-    if (msg.content.includes("FUCK")) {
-    msg.delete(300);
-    msg.reply('``Fuck You Too Boi.``');
+  if (msg.content.startsWith('..diss')) {
+    var jd = msg.content.replace("..diss@","")
+    msg.reply('Yeah Boi '+ jd +' Joined Discord @ **'+ jd.createdAt +'**');
   }
 });
 
+
+client.on('message', msg => {
+if(['FUCK', 'Fuk','FucK', 'FUck', 'F_ck' , 'Fuck', 'fuk'].indexOf(msg.content) >= 0){
+      if (msg.author.id != "307154840914493451")
+        {
+          msg.delete(300);
+          msg.reply('``Fuck You Too Boi.``');
+        }
+    }
+});
 
 client.on('message', msg => {
   if (msg.content.includes("sad") ) {
@@ -122,7 +151,7 @@ client.on('message', msg => {
 });
 
 client.on('message', message => {
-  if (message.content.includes("..SETS1")) {
+  if (message.content.startsWith("..SETS1")) {
     if (message.author.id === tune||indra ) 
     {
         s1 = message.content;
@@ -141,8 +170,52 @@ client.on('message', message => {
 }
 });
 
+
 client.on('message', message => {
-  if (message.content.includes("..SETSU1")) {
+  if (message.content.startsWith("..SETS2")) {
+    if (message.author.id === tune||indra ) 
+    {
+        s2 = message.content;
+        ss2 = s2.replace("..SETS2","")
+        if(ss2 == ""){message.reply("``Song Name Cannot Be Empty``")}
+        else
+        {
+          console.log(ss2);
+          message.reply("**The Song 2 ``NAME`` Set For the day is **``"+ss2+"``");
+        }  
+  }
+    else
+    {
+        message.reply("``This Command Is Only For Djs With Permisions.``");
+    }
+}
+});
+
+
+client.on('message', message => {
+  if (message.content.startsWith("..SETS3")) {
+    if (message.author.id === tune||indra ) 
+    {
+        s3 = message.content;
+        ss3 = s3.replace("..SETS3","")
+        if(ss3 == ""){message.reply("``Song Name Cannot Be Empty``")}
+        else
+        {
+          console.log(ss3);
+          message.reply("**The Song 3 ``NAME`` Set For the day is **``"+ss3+"``");
+        }  
+  }
+    else
+    {
+        message.reply("``This Command Is Only For Djs With Permisions.``");
+    }
+}
+});
+
+
+
+client.on('message', message => {
+  if (message.content.startsWith("..SETSU1")) {
     if (message.author.id === indra||tune  ) 
     {
         su1 = message.content;
@@ -163,6 +236,51 @@ client.on('message', message => {
 });
 
 
+client.on('message', message => {
+  if (message.content.startsWith("..SETSU2")) {
+    if (message.author.id === indra||tune  ) 
+    {
+        su2 = message.content;
+        ssu2 = su2.replace("..SETSU2","")
+        if(ssu2 == ""){message.reply("``Song URL Cannot Be Empty``")}
+        else
+        {
+        console.log(ssu2);
+        message.reply("**The Song 2 `URL` Set For the day is **``"+ssu2+"``");
+        }
+    }
+    else
+    {
+        
+        message.reply("``This Command Is Only For Djs With Permisions.``");
+    }
+}
+});
+
+
+client.on('message', message => {
+  if (message.content.startsWith("..SETSU3")) {
+    if (message.author.id === indra||tune  ) 
+    {
+        su3 = message.content;
+        ssu3 = su3.replace("..SETSU3","")
+        if(ssu3 == ""){message.reply("``Song URL Cannot Be Empty``")}
+        else
+        {
+        console.log(ssu3);
+        message.reply("**The Song 3 `URL` Set For the day is **``"+ssu3+"``");
+        }
+    }
+    else
+    {
+        
+        message.reply("``This Command Is Only For Djs With Permisions.``");
+    }
+}
+});
+
+
+
 client.on('message', msg => {
   if (msg.content === '..leave') {
     const voiceChannel = msg.member.voiceChannel;
@@ -174,77 +292,149 @@ client.on('message', msg => {
 
 
 
-client.on('message', msg => {
+client.on('message', (msg) => {
   if (msg.content === '..T3') {
-    if(ss1||ss2||ss3||ssu1||ssu2||ssu3 === "" )
-    {
-      msg.reply('`TOP 3 Are Not Set Yet !`');
-    }
+    if(ss1 == undefined || ss2 == undefined || ss3 == undefined)
+    {msg.reply("``TOP 3 FOR THE DAY NOT SET YET !``")}
     else
-    {
-    msg.reply('``HERE are Your Top 3 Songs.. ``');  
-          msg.channel.send("`1."+ss1+"  - "+ssu1+"`");
-          msg.channel.send("`2."+ss2+"  - "+ssu2+"`");
-          msg.channel.send("`3."+ss3+"  - "+ssu3+"`");
+    { 
+          msg.channel.send( "``Top 3 Songs`` \n"+ss1+" - "+ssu1);
+          msg.channel.send( ss2+" - "+ssu2);
+          msg.channel.send( ss3+" - "+ssu3);
     }
   }
 });
 
 client.on("guildCreate", (guild) => {
-
-    console.log(client.user.username + " was invited to and joined " + guild.name);
+    console.log("+--------------------------------------------------------------+")
+    console.log(client.user.username + "joined " + guild.name);
+    console.log("+--------------------------------------------------------------+")
 });
+
+client.on("guildDelete", (guild) => {
+    console.log("+--------------------------------------------------------------+")
+    console.log(client.user.username + "left " + guild.name);
+    console.log("+--------------------------------------------------------------+")
+});
+
+
+client.on('message', (msg) => {
+  if (msg.content === '..welcomer') {
+    join_leave = msg.channel.id;
+    msg.reply("channel of id: ``"+join_leave+"``, Has Been Set For The Joining Members on the Server");
+  }
+});
+
+
+
 client.on("guildMemberAdd", (member) => {
+  if(join_leave=== undefined){}
+    else{
   const guild = member.guild;
     console.log(member.user.username + " joined " + guild.name);
-    guild.channels.get(guild.id).send({embed: {
+    guild.channels.get(join_leave).send('hey welcome'+member.user);
+    guild.channels.get(join_leave).send({embed: {
   color: 0x00AE86,
   author: {
-    name: client.user.username,
-    icon_url: client.user.avatarURL
+    name: guild.name,
+    icon_url: guild.iconURL 
   },
-  title: 'This is an embed',
-  url: 'http://google.com',
-  description: 'WELCOME TO THE SERVER !'+ member.user.username,
+  title: 'Yeah Boi !',
+  url: 'http://imgur.com/gallery/FExIJ',
+  description: 'WELCOME TO THE SERVER '+ member.user.username + ' !',
   "image": {
                 "url": member.user.avatarURL,
                 },
   fields: [
     {
       name: member.user.username,
-      value: 'Joined @ **'+member.joinedTimestamp.toString 
+      value: "ID: ``" + member.user.id +"`` \nJoined Discord @ **"+member.user.createdAt+"**"
     },
     {
-      name: ' **Server Count ``"+ guild.memberCount + "``**',
-      value: member.user.tag+"``Hope you enjoy your stay here !``"
+      name: 'Server Count **``'+ guild.memberCount + '``**',
+      value:"``"+ member.user.username+" Hope you enjoy your stay here !``"
     },
   ],
   timestamp: new Date(),
   footer: {
-    icon_url: client.user.avatarURL,
-    text: '© Example'
+    icon_url: guild.iconURL,
+    text: '© ' + guild.name
   }
 }});
-
+    }
 });
 
 client.on('guildMemberRemove', (member) => {
+  if (member.id != "307154840914493451"){
+    if(join_leave === undefined){}
+    else{
   const guild = member.guild;
   console.log(member.user.username + " left " + guild.name);
-     guild.channels.get(guild.id).send("bye bye **``"+member.user.username+"``** we Dont even need you !" )
-     guild.channels.get(guild.id).send(" **Server Count ``"+ guild.memberCount + "``**" )
-
+      guild.channels.get(join_leave).send({embed: {
+  color: 0x00AE86,
+  author: {
+    name: guild.name,
+    icon_url: guild.iconURL
+  },
+  title: 'Yeah Boi !',
+  url: 'http://imgur.com/gallery/FExIJ',
+  description: 'Bye Bye '+ member.user.username + ' !',
+  "image": {
+                "url": member.user.avatarURL,
+                },
+  fields: [
+    {
+      name: member.user.username,
+      value:"ID: ``"+ member.user.id +"``",
+      value: 'Joined @ '+member.joinedAt,
+    },
+    {
+      name: 'Server Count **``'+ guild.memberCount + '``**',
+      value:"``"+ member.user.username+" Hope To See You Back !``"
+    },
+  ],
+  timestamp: new Date(),
+  footer: {
+    icon_url: guild.iconURL,
+    text: '© ' + guild.name
+  }
+    
+}});
+  }
+  }
   });
 
 
 client.on('message', message => {
-  // If the message is "what is my avatar"
+
   if (message.content === '..avatar') {
-    // Send the user's avatar URL
     message.reply(message.author.avatarURL);
   }
 });
 
+
+client.on('message', message => {
+
+  if (message.content === '..clean') {
+     message.channel.sendMessage('Cleaning...');
+    message.channel.bulkDelete(cleanarr);
+    var cleanarr = [];
+  }
+});
+
+
+client.on("message", m => {
+	if (m.content.includes("..dick")) {
+    var x = m.content.length;
+    var rand = Math.floor(Math.random() * Math.pow(10,x));
+  var dummy = rand;
+  while (dummy<Math.pow(10,x-1)){
+    rand = "0" + rand;
+    dummy = dummy*10;
+  }
+    m.reply(rand)
+  }
+});
 
 client.on("message", m => {
 	if (m.content.includes("..toss")) {
@@ -255,8 +445,15 @@ client.on("message", m => {
 
 
 client.on("message", m => {
-	if (m.content === '..mems') {
-    m.reply('You are fukin Gay !');
+	if (m.content.startsWith('..gif')) {
+    if(m.content === '..gif')
+    {m.reply('You need to pass a tag with this command eg;``..giff ass`` !');}
+    else{
+    var tags = m.content.replace("..gif ","")
+    giphy.random(tags, function (err, res) {
+      m.reply(res.data.image_url);
+});
+  }
   }
 });
 
@@ -280,5 +477,34 @@ client.on('message', message => {
 });
 
 
+client.on('message', message => {
+  if (message.content.startsWith('..play')) {
+    var song = message.content.replace("..play","")
+    var ptrn = (/^[a-zA-Z0-9-_]{11}$/)
+    var songt = ptrn.test(song)
+    if (songt != ptrn.test(song) && !song.includes("youtube"))
+      {message.reply("the link should be `` youtube `` only !")}
+      else{
+    const voiceChannel = message.member.voiceChannel;
+    if (!voiceChannel) {
+      return message.reply(`Please be in a voice channel first!`);
+    }
+     message.reply('Boi Playing ``' + song + '`` !');
+    voiceChannel.join()
+      .then(connnection => {
+        const stream = yt(song, {filter: 'audioonly'});
+        const dispatcher = connnection.playStream(stream);
+        dispatcher.on('end', () => {
+          voiceChannel.leave();
+        });
+      });
+  }
+  }
+});
 
-client.login('MzA3MTU0ODQwOTE0NDkzNDUx.C-OL0Q.892UuiJOCGbqg57J5pWFIwWXIX0');
+
+setInterval(function() {
+    client.login('MzA3MTU0ODQwOTE0NDkzNDUx.C-OL0Q.892UuiJOCGbqg57J5pWFIwWXIX0');
+}, 30000);
+
+
