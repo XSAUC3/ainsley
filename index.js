@@ -5,9 +5,17 @@ var giphy           = require('giphy-api')();
 const streamOptions = { seek: 0, volume: 1 };
 const tune          = '199926086522503168';
 const indra         = '203851306044096512';
-const GoogleImages = require('google-images');
+var BillBoardh      = require('billboard-hot-100');
+var tc = require('node-techcrunch');
+const randomPuppy = require('random-puppy');
+
+
+var analyrics = require("analyrics");
+analyrics.setToken("Nb8CfqUus5LBVtIj-uWWQiO9EdbhA47s9bpJ2yXIZcZ32fqO_1p6yH-VzEXVHnxo");
 
 const newUsers = [];
+
+var join_leave = [];
 
 var game = "food...nah! ..help"; 
 
@@ -22,8 +30,6 @@ var ssu2;
 var s3  ;
 var ss3 ;
 var ssu3;
-
-var join_leave;
 
 var d = new Date();
 var i = d.getDay();
@@ -86,7 +92,18 @@ client.on('message', (message) => {
 client.on('message', (message) => {
   if(message.content === "..as" ) 
   {
+    console.log(client.guilds);
     message.reply("Boi I Am Now on **``"+ client.guilds +"``**");
+  }
+});
+
+
+client.on('message', (message) => {
+  if(message.content === "..welcomer" ) 
+  {
+      join_leave.push({name:message.guild.name , value:message.channel.id });
+      message.reply(message.channel.name + " wih id:``" + message.channel.id + "`` has been set for join and leave functionality !")
+       
   }
 });
 
@@ -112,6 +129,16 @@ client.on('message', msg => {
   }
 });
 
+client.on('message',msg => {
+  if (msg.content==="..random")
+  {
+    randomPuppy()
+    .then(url => {
+       msg.reply(url);
+    })
+  }
+})
+
 
 client.on('message', msg => {
   if (msg.content === '..help') {
@@ -119,6 +146,26 @@ client.on('message', msg => {
     msg.author.send({embed:cmds});
   }
 });
+
+
+client.on('message', msg => {
+  if (msg.content.startsWith('..lyrics')) {
+    if (msg.content === "..lyrics"){msg.reply('Yeah Boi you need to supply a song name with this command ! ``eg:..lyrics congratulations``');}
+    else{
+      var songname = msg.content.replace("..lyrics ","");
+      analyrics.getSong(songname, function(song) {
+        var lyrics = song.lyrics;
+        msg.reply("\n **```"+song.title+" - "+song.artist+"```** \n");
+        msg.channel.send("**"+lyrics.substring(0,1000)   + "**");
+        msg.channel.send("**"+lyrics.substring(1001,2000)+ "**");
+        msg.channel.send("**"+lyrics.substring(2000,3000)+ "**");
+        msg.channel.send("**"+lyrics.substring(3001,4000)+ "**");
+        msg.channel.send("**"+lyrics.substring(4001,5000)+ "**");
+      });
+    }
+  }
+});
+
 
 client.on('message', msg => {
   if (msg.content === '..dis') {
@@ -128,7 +175,7 @@ client.on('message', msg => {
 
 client.on('message', msg => {
   if (msg.content.startsWith('..diss')) {
-    var jd = msg.content.replace("..diss@","")
+    var jd = msg.content.replace("..diss ","");
     msg.reply('Yeah Boi '+ jd +' Joined Discord @ **'+ jd.createdAt +'**');
   }
 });
@@ -305,35 +352,93 @@ client.on('message', (msg) => {
   }
 });
 
-client.on("guildCreate", (guild) => {
-    console.log("+--------------------------------------------------------------+")
-    console.log(client.user.username + "joined " + guild.name);
-    console.log("+--------------------------------------------------------------+")
-});
-
-client.on("guildDelete", (guild) => {
-    console.log("+--------------------------------------------------------------+")
-    console.log(client.user.username + "left " + guild.name);
-    console.log("+--------------------------------------------------------------+")
-});
-
 
 client.on('message', (msg) => {
-  if (msg.content === '..welcomer') {
-    join_leave = msg.channel.id;
-    msg.reply("channel of id: ``"+join_leave+"``, Has Been Set For The Joining Members on the Server");
+  if (msg.content.startsWith('..bb')) {
+    if (msg.content==="..bb" ) {msg.reply("You Need To Supply a rank with this command. ``eg: ..bb 1``")}
+    var rank = msg.content.replace("..bb ","");
+    var ptn = (/^[1-9]{2}$/)
+    var rankt = ptn.test(rank)
+    if (rankt == "false" ) {msg.reply("You Need To Supply a rank with this command. ``eg: ..bb 1``")}
+    else{
+    BillBoardh.init().then(function(billboard){
+      var bbsong = billboard.getSongAt(rank-1)
+      msg.reply({embed: {
+  color: 0x00AE86,
+  author: {
+    name: client.user.username ,
+    icon_url: client.user.avatarURL 
+  },
+  title: 'Billboard HOT Chart',
+  url: 'http://www.billboard.com',
+  image: {
+                "url": bbsong.image,
+                },
+  fields: [
+    {
+      name: bbsong.artist,
+      value:bbsong.name + " @ Rank `` "+ bbsong.rank+ " ``"
+    },
+  ],
+  timestamp: new Date(),
+  footer: {
+    icon_url: client.user.avatarURL,
+    text: '© ' + client.user.username
+  }
+}})
+
+  })
+}
+}
+});
+
+
+client.on("message", msg =>{
+  if(msg.content === "..news")
+  {
+   tc.crunchLast()
+      .then(function(res) {
+        //console.log(res);
+        msg.reply("**TODAY'S NEWS** \n *```"+ res.next.title +"```* \n ``` Markdown" + res.text+"```")
+       // msg.reply("**``"+res.text+"``**");
+  })
+  .catch(function(err) {
+      console.log(err + " error gettting the news"); 
+  });
   }
 });
 
 
 
+client.on("guildCreate", (guild) => {
+    console.log("+--------------------------------------------------------------+")
+    console.log(client.user.username + " joined " + guild.name);
+    console.log("+--------------------------------------------------------------+")
+});
+
+client.on("guildDelete", (guild) => {
+    console.log("+--------------------------------------------------------------+")
+    console.log(client.user.username + " left " + guild.name);
+    console.log("+--------------------------------------------------------------+")
+});
+
+
+
+
 client.on("guildMemberAdd", (member) => {
-  if(join_leave=== undefined){}
-    else{
   const guild = member.guild;
     console.log(member.user.username + " joined " + guild.name);
-    guild.channels.get(join_leave).send('hey welcome'+member.user);
-    guild.channels.get(join_leave).send({embed: {
+    var ch = join_leave.filter(function (el) {
+      return (el.name === message.guild.name);
+    });
+    var val = ch.map(function(item) {
+    return item.value
+  });
+  var value = val.replace(/[^A-Z0-9]+/ig, "")
+    if(val != null )
+    {
+    guild.channels.value.send('hey welcome'+member.user);
+    guild.channels.value.send({embed: {
   color: 0x00AE86,
   author: {
     name: guild.name,
@@ -341,7 +446,7 @@ client.on("guildMemberAdd", (member) => {
   },
   title: 'Yeah Boi !',
   url: 'http://imgur.com/gallery/FExIJ',
-  description: 'WELCOME TO THE SERVER '+ member.user.username + ' !',
+  description: 'Welcome To The Server  '+ member.user.username + ' !',
   "image": {
                 "url": member.user.avatarURL,
                 },
@@ -360,17 +465,19 @@ client.on("guildMemberAdd", (member) => {
     icon_url: guild.iconURL,
     text: '© ' + guild.name
   }
+
 }});
     }
 });
 
 client.on('guildMemberRemove', (member) => {
   if (member.id != "307154840914493451"){
-    if(join_leave === undefined){}
-    else{
   const guild = member.guild;
   console.log(member.user.username + " left " + guild.name);
-      guild.channels.get(join_leave).send({embed: {
+
+ 
+  if (val != null){
+      guild.channels.value.send({embed: {
   color: 0x00AE86,
   author: {
     name: guild.name,
@@ -479,26 +586,31 @@ client.on('message', message => {
 
 client.on('message', message => {
   if (message.content.startsWith('..play')) {
-    var song = message.content.replace("..play","")
+    var song = message.content.replace("..play ","")
     var ptrn = (/^[a-zA-Z0-9-_]{11}$/)
     var songt = ptrn.test(song)
-    if (songt != ptrn.test(song) && !song.includes("youtube"))
+    if (songt == "false" || !song.includes("youtu"))
       {message.reply("the link should be `` youtube `` only !")}
       else{
     const voiceChannel = message.member.voiceChannel;
     if (!voiceChannel) {
       return message.reply(`Please be in a voice channel first!`);
     }
-     message.reply('Boi Playing ``' + song + '`` !');
-    voiceChannel.join()
+    yt.getInfo(song, function(err, info) {
+        if(err != null){message.reply("``youtube`` video link not found !")}
+        else
+        {
+          message.delete(300);
+          message.reply("Yeah Boi ! Playing **"+info.title+"**")
+      voiceChannel.join()
       .then(connnection => {
         const stream = yt(song, {filter: 'audioonly'});
         const dispatcher = connnection.playStream(stream);
-        dispatcher.on('end', () => {
-          voiceChannel.leave();
-        });
+        dispatcher.on('end', () => {voiceChannel.leave();});
       });
-  }
+        }
+    });
+    }
   }
 });
 
