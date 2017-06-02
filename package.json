@@ -4,14 +4,19 @@
   "description": "discord memes bot",
   "main": "index.js",
   "scripts": {
-    "start": "index"
+    "start": "node index"
   },
   "author": "Chinmay",
   "license": "ISC",
   "dependencies": {
+    "analyrics": "^1.2.0",
+    "billboard-hot-100": "^1.0.4",
     "discord.js": "^11.0.0",
+    "giphy-api": "^1.2.6",
     "guild": "^1.2.2",
     "node-opus": "^0.2.6",
+    "node-techcrunch": "^0.2.2",
+    "random-puppy": "^1.1.0",
     "ytdl": "^0.6.0"
   }
 }
