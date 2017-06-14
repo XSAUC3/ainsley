@@ -428,7 +428,7 @@ client.on("guildDelete", (guild) => {
 client.on("guildMemberAdd", (member) => {
   const guild = member.guild;
     console.log(member.user.username + " joined " + guild.name);
-    guild.channels.get(id).send('hey welcome'+member.user);
+    guild.channels.get(channel.id).send('hey welcome'+member.user);
     guild.channels.value.send({embed: {
   color: 0x00AE86,
   author: {
@@ -465,7 +465,7 @@ client.on('guildMemberRemove', (member) => {
   const guild = member.guild;
   console.log(member.user.username + " left " + guild.name);
 
-      guild.channels.get(id).send({embed: {
+      guild.channels.get(channel.id).send({embed: {
   color: 0x00AE86,
   author: {
     name: guild.name,
