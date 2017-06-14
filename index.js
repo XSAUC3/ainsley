@@ -428,16 +428,7 @@ client.on("guildDelete", (guild) => {
 client.on("guildMemberAdd", (member) => {
   const guild = member.guild;
     console.log(member.user.username + " joined " + guild.name);
-    var ch = join_leave.filter(function (el) {
-      return (el.name === message.guild.name);
-    });
-    var val = ch.map(function(item) {
-    return item.value
-  });
-  var value = val.replace(/[^A-Z0-9]+/ig, "")
-    if(val != null )
-    {
-    guild.channels.value.send('hey welcome'+member.user);
+    guild.channels.get(id).send('hey welcome'+member.user);
     guild.channels.value.send({embed: {
   color: 0x00AE86,
   author: {
@@ -467,7 +458,6 @@ client.on("guildMemberAdd", (member) => {
   }
 
 }});
-    }
 });
 
 client.on('guildMemberRemove', (member) => {
@@ -475,9 +465,7 @@ client.on('guildMemberRemove', (member) => {
   const guild = member.guild;
   console.log(member.user.username + " left " + guild.name);
 
- 
-  if (val != null){
-      guild.channels.value.send({embed: {
+      guild.channels.get(id).send({embed: {
   color: 0x00AE86,
   author: {
     name: guild.name,
@@ -507,7 +495,6 @@ client.on('guildMemberRemove', (member) => {
   }
     
 }});
-  }
   }
   });
 
