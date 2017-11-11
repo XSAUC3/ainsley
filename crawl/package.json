@@ -1,0 +1,115 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "aimer",
+        "scope": null,
+        "escapedName": "aimer",
+        "name": "aimer",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/TUNECHi/Desktop/untitled folder"
+    ]
+  ],
+  "_from": "aimer@latest",
+  "_id": "aimer@1.3.0",
+  "_inCache": true,
+  "_location": "/aimer",
+  "_nodeVersion": "4.2.4",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/aimer-1.3.0.tgz_1470489673914_0.9115414584521204"
+  },
+  "_npmUser": {
+    "name": "kchan",
+    "email": "kchanzen@gmail.com"
+  },
+  "_npmVersion": "3.10.5",
+  "_phantomChildren": {
+    "boolbase": "1.0.0",
+    "dom-serializer": "0.1.0",
+    "domelementtype": "1.3.0",
+    "entities": "1.1.1",
+    "htmlparser2": "3.8.3",
+    "jsdom": "7.2.2",
+    "nth-check": "1.0.1"
+  },
+  "_requested": {
+    "raw": "aimer",
+    "scope": null,
+    "escapedName": "aimer",
+    "name": "aimer",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/aimer/-/aimer-1.3.0.tgz",
+  "_shasum": "5ff8bdcf25e766d6e77e7c0d24d3af50b2288395",
+  "_shrinkwrap": null,
+  "_spec": "aimer",
+  "_where": "/Users/TUNECHi/Desktop/untitled folder",
+  "author": {
+    "name": "EGOIST",
+    "email": "0x142857@gmail.com",
+    "url": "github.com/egoist"
+  },
+  "bugs": {
+    "url": "https://github.com/egoist/aimer/issues"
+  },
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "node-fetch": "^1.5.1"
+  },
+  "description": "Remote web content crawler done right.",
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "xo": "^0.15.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "5ff8bdcf25e766d6e77e7c0d24d3af50b2288395",
+    "tarball": "https://registry.npmjs.org/aimer/-/aimer-1.3.0.tgz"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "gitHead": "507b73e92d85c59aa302eb42c85ea7a853933bbf",
+  "homepage": "https://github.com/egoist/aimer#readme",
+  "keywords": [
+    "crawler",
+    "scraper"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "kchan",
+      "email": "kchanzen@gmail.com"
+    }
+  ],
+  "name": "aimer",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/aimer.git"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "version": "1.3.0",
+  "xo": {
+    "semicolon": false,
+    "space": 2,
+    "globals": [
+      "document"
+    ]
+  }
+}
