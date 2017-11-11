@@ -1,22 +1,21 @@
 {
-  "name": "meemer",
+  "name": "ainsley",
   "version": "1.0.0",
-  "description": "discord memes bot",
+  "description": "A Mem Bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "author": "Chinmay",
+  "author": "tuneitbaby",
   "license": "ISC",
   "dependencies": {
     "analyrics": "^1.2.0",
-    "billboard-hot-100": "^1.0.4",
-    "discord.js": "^11.0.0",
-    "giphy-api": "^1.2.6",
-    "guild": "^1.2.2",
+    "discord.js": "^11.1.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
     "node-opus": "^0.2.6",
-    "node-techcrunch": "^0.2.2",
-    "random-puppy": "^1.1.0",
-    "ytdl": "^0.6.0"
+    "request": "^2.83.0",
+    "ytdl-core": "^0.18.1"
   }
 }
