@@ -24,7 +24,7 @@ const cmds = new Discord.RichEmbed()
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`);
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-    client.user.setGame('ainsley.tk Boiii');
+    client.user.setGame('ainsley.cf Boiii');
     app.locals.servers  = client.guilds.size;
     app.locals.usrs    = client.users.size;
     app.locals.channels = client.channels.size;
